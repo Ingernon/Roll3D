@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/colorpicker.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}">
+{% endblock %}
+{% block body %}
+	
+	<div class="color_picker_dialog" draggable="false">
+		<div class="hue_bar">
+			<div class="hue_picker"></div>
+		</div>
+		<div class="sat_rect" draggable="false">
+			<div class="white"></div>
+			<div class="black"></div>
+			<div class="sat_picker"></div>
+		</div>
+		<div class="bottom">
+			<div class="color_preview"></div>
+			<input type="text" onkeyup="changeHex(this.value)" value="#FF0000" />
+		</div>
+	</div>
+	<div id="shapes">
+		<button id="square"><img src="https://i.ibb.co/bNKhS0z/square.png" alt=""></button>
+		<button id="triangle"><img src="https://i.ibb.co/D5Y7HBN/triangle.png" alt=""></button>
+		<button id="circle"><img src="https://i.ibb.co/xfWZt37/circle.png" alt=""></button>
+	</div>
+
+	<script src="{{ url_for('static', filename='js/colorpicker.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,15 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	background: #232323;
+	font-family: "Avenir Next", "Avenir", sans-serif;
+	overflow: hidden;
+}
+
+#game {
+	left: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}

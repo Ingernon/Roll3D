@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Game</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+
+		<nav role="navigation">
+			<div id="menuToggle">
+				<input type="checkbox" />
+				<span></span>
+				<span></span>
+				<span></span>
+				<ul id="menu">
+					<a href="/"><li>Home</li></a>
+					<a href="/host"><li>Host</li></a>
+					<a href="/editor"><li>Editor</li></a>
+					<a href="#"><li>Info</li></a>
+				</ul>
+			</div>
+		</nav>
+
+
+		<div id="game"></div>
+		<script src="http://mrdoob.github.com/three.js/build/three.min.js"></script>
+		<script src="http://mrdoob.github.com/stats.js/build/stats.min.js"></script>
+		<script src="{{ url_for('static', filename='js/engine.js') }}"></script>
+		{% block body %}{% endblock %}
+	</body>
+</html>
