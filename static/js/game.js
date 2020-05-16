@@ -50,13 +50,19 @@ class Game {
 		this.engine.init()
 		this.map = null
 		this.entity = []
-		this.entity = []
 		this.id = window.location.href.split('/').pop()
+
+		this.mouse = new THREE.Vector2()
+		this.raycaster = new THREE.Raycaster()
+		this.cursor = this.engine.assets.entity.cursor()
+		this.engine.scene.add(this.cursor)
+
 		this.init_light()
 		this.request_repeat = false
 		this.init_requests()
 		this.request_map()
 		this.socket.emit("users", this.id)
+		this.engine.control.onMouseMove = (() => this.onMouseMove())
 	}
 
 	init_requests() {
@@ -154,6 +160,27 @@ class Game {
 		ent.controler()
 		this.entity.push(ent)
 	}
+
+	onMouseMove () {
+		this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+		this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	}
+
+	select_object () {
+		this.raycaster.setFromCamera( this.mouse, this.engine.camera );
+		var intersects = this.raycaster.intersectObjects( this.engine.scene.children);
+		var players = this.raycaster.intersectObject( this.entity[0].mesh,true );
+		if ( intersects.length > 0 ) {
+			console.log(intersects)
+			this.cursor.position.x = Math.floor(intersects[0].point.x/ 10) * 10
+			this.cursor.position.y = Math.floor(intersects[0].point.y/ 10) * 10
+			this.cursor.position.z = Math.floor(intersects[0].point.z/ 10) * 10
+			//console.log(intersects)
+			//console.log(this.engine.scene.children)
+			//console.log(this.entity[0].mesh)
+			//console.log(players)
+		}
+	}
 }
 
 function loop () {
@@ -161,6 +188,7 @@ function loop () {
 	for (var i = 0; i < game.entity.length; i++) {
 		game.entity[i].animate()
 	}
+	game.select_object()
 	game.engine.renderer.render(game.engine.scene, game.engine.camera)
 	game.engine.stats.update();
 }

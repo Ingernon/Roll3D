@@ -12,12 +12,24 @@ class Assets {
 			player () {
 				var player = new THREE.Group()
 				
-				let mesh = new THREE.Mesh(new THREE.BoxGeometry( 7, 7, 10 ), 
+				var mesh = new THREE.Mesh(new THREE.BoxGeometry( 7, 7, 10 ), 
 					new THREE.MeshPhongMaterial( { color: 'blue', flatShading: false } ))
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
 				player.add(mesh)
 				return(player)
+			}
+
+			cursor () {
+				var cursor = new THREE.Group()
+				let geometry = new THREE.BoxGeometry( 10, 10, 10 )
+				let wireframe = new THREE.EdgesGeometry( geometry )
+				var line = new THREE.LineSegments( wireframe );
+				line.material.depthTest = false;
+				line.material.transparent = true;
+				let mat = new THREE.MeshPhongMaterial( { color: 'red', flatShading: false } )
+				cursor.add(line)
+				return(cursor)
 			}
 
 			enemy () {
